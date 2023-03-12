@@ -8,23 +8,25 @@ import { TodoItem } from './todoItem';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    private list = new TodoList('Bob', [
-      new TodoItem('Go for run', true),
-      new TodoItem('Get flowers'),
-      new TodoItem('Collect tickets'),
-    ]);
+  private list = new TodoList('Bob', [
+    new TodoItem('Go for run', true),
+    new TodoItem('Get flowers'),
+    new TodoItem('Collect tickets'),
+  ]);
 
-    get username(): string {
-      return this.list.user;
-    }
+  showComplete = false;
 
-    get itemCount(): number {
-      return this.list.items.length;
-    }
+  get username(): string {
+    return this.list.user;
+  }
 
-    get items(): readonly TodoItem[] {
-      return this.list.items.filter(item => !item.complete);
-    }
+  get itemCount(): number {
+    return this.list.items.length;
+  }
+
+  get items(): readonly TodoItem[] {
+    return this.list.items.filter(item => this.showComplete || !item.complete);
+  }
 
   addItem(newItem) {
     if (newItem !== '') {
